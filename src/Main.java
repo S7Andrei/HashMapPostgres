@@ -1,3 +1,4 @@
+import java.util.List;
 import java.util.Scanner;
 import java.util.UUID;
 import java.util.Optional;
@@ -38,14 +39,14 @@ public class Main {
                     System.out.println("Produto cadastrado com sucesso!");
                     break;
                 case 2:
-                    System.out.println("Buscar Produto");
-                    System.out.print("ID do Produto: ");
-                    String id = scanner.nextLine();
-                    Optional<Product> foundProduct = productRepository.findById(UUID.fromString(id));
-                    if (foundProduct.isPresent()) {
-                        System.out.println("Produto encontrado: " + foundProduct.get().getName() + " - " + foundProduct.get().getPrice());
+                    System.out.println("Produtos Cadastrados:");
+                    List<Product> products = productRepository.findAll();
+                    if (products.isEmpty()) {
+                        System.out.println("Nenhum produto cadastrado.");
                     } else {
-                        System.out.println("Produto não encontrado.");
+                        for (Product p : products) {
+                            System.out.println("ID: " + p.getUuid() + " - Nome: " + p.getName() + " - Preço: " + p.getPrice());
+                        }
                     }
                     break;
                 case 3:
